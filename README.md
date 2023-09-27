@@ -1,0 +1,2 @@
+# learn-DEVOPS
+This repository consists of the required files to create AWS and GKE KUBERNETES clusters using TERRAFORM. I have also included yml files helpful in Deploying MONGODB (mongo-server and mongo-clients) application. MongoDB is a database application and upon restarts the data in the pods cannot be deleted. So, I have used statefulset to deploy mongodb onto kubernetes cluster along with Headless service and persistent volume claim with storage class. This repository also provides required commands to deploy PROMETHEUS & GRAFANA using HELM charts.
