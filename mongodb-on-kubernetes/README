@@ -1,0 +1,23 @@
+This folder consists of files which are required to deploy mongodb as a statefulset on the Kubernetes cluster.
+I have provided files for AWS-K8S-CLUSTER & GKE-K8S-CLUSTER.
+To setup mongodb on K8s cluster we need the following files:
+1. Storageclass.yaml (this file used to create a storageclass for the mongodb application)
+2. Persistentvolumeclaim.yaml (this file will create a persistentvolumeclaim which is nothing but a storagespace for our mongodb application because the mongodb is a DATABAse application which cannot lose its data even if the pod gets restarted.)
+3. Statefulset.yaml (As MONGODB is a DATABASE application It cannot lose its data even if the pod gets restarted, the same pod name and the persistentvolume will be created for the Pod and data will not be lost. That is why mongodb is not deployed as a Deployment But is deployed as a statefulset.)
+4. Headless.yaml (This creates a service with which we can access the mongodb application.)
+
+NOTE: The actual file names will vary from the above names.
+Usually mongodb consists of mongodb-server and mongodb-clients. But, the official mongodb docker-image only consists of mongodb-server. We have to install other requirments ourselves Which I have already done.                     
+use kubectl apply -f < yaml file name > to create the resource you want. In general first create a Storageclass, then Persistentvolumeclaim, later Statefulset and Headless service.         
+After deploying mongodb successfully configure it with the following commands:
+kubectl exec -it mongo-0 -- mongo  (With this command you will enter into the mongodb pod).
+rs.initiate(
+  {
+    _id: "myReplicaSet",
+    members: [
+      { _id: 0, host: "mongo-0.mongo.default.svc.cluster.local:27017" },
+      { _id: 1, host: "mongo-1.mongo.default.svc.cluster.local:27017" },
+      { _id: 2, host: "mongo-2.mongo.default.svc.cluster.local:27017" }
+    ]
+  }
+) (This will configure all the 3 mongodb pods and they will be in sync after we use this command. We have configured our statefulset for only 3 pods).
