@@ -1,0 +1,11 @@
+I am using GCP to create Kubernetes cluster. This folder consists of 3 files
+1. main.tf "which consists of the configuration to create a GKE cluster, This configuration will create a cluster IN 'asia-south1' region with max=4 nodes which are e2-small."
+NOTE: The created cluster will allow all the traffic from internet.
+2. output.tf "This file is created to display/provide the name of the created cluster"
+3. variables.tf "This file consists of all the variables required for the above 2 files. Any parameter changes should be made in this file only, without effecting the actual configuration."
+
+After reaching the folder where this 3 files are stored run the following commands
+1. terraform init (this will initialise the terraform in the current folder and downloads all the required dependencies.)
+2. terraform validate (this command checks the code for its validity and possible errors.)
+3. terraform plan (this command is used to check what are the things that are going to be created, modified, etc.)
+4. terraform apply -auto-approve ( terraform apply will display all the changes, modifications that will happen and asks for confirmation.)
