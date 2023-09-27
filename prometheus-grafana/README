@@ -1,0 +1,19 @@
+There are multiple ways with which we can install PROMETHEUS & GRAFANA.
+1. Install them from official website on to local and configure them. But, it is not a suggested method because it requires lots of effort. Because it involves large number of files to create and deploy and monitor them.
+2. With the help of Prometheus operator with the help of HELM Charts. 
+3. Prometheus monitoring stack.
+
+The Kubernetes Prometheus monitoring stack has the following components.
+
+Prometheus Server
+Alert Manager
+Grafana
+
+After creating a cluster, create a NAMESPACE monitoring with "kubectl create ns monitoring"
+And switch to the monitoring namespace with "kubectl config set-context --current --namespace=monitoring"
+Check the current namespace with "kubectl config view --minify | grep namespace"
+
+Create a folder. For example "kubernetes-prometheus"
+In order to deploy Prometheus monitoring stack a lot of deployments, services, configuration files, Cluster-role and role-binding are to be deployed. So, place all the files in the above
+created folder and just use "kubectl apply -f kubernetes-prometheus" all of the yaml files will be deployed.
+I have provided all the files.
